@@ -6,16 +6,17 @@ import {
     FormLabel,
     Heading,
     Input,
-    Link,
     Stack,
     Image,
     useColorModeValue
 } from '@chakra-ui/react';
+import { colors } from '../../constants/theme';
+import Link from 'next/link';
 
 export default function login() {
     return (
         <Stack minH={'100vh'}
-            bg={useColorModeValue('teal.50', 'gray.800')}
+            bg={useColorModeValue(colors.background)}
             direction={{ base: 'column', md: 'row' }}>
 
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
@@ -24,7 +25,7 @@ export default function login() {
                     minH={'100vh'}
                     align={'center'}
                     justify={'center'}
-                    bg={useColorModeValue('teal.50', 'gray.800')}>
+                    bg={useColorModeValue(colors.background)}>
                     <Stack
                         spacing={4}
                         w={'full'}

@@ -6,10 +6,10 @@ import {
     Input,
     Stack,
     Text,
-    Link,
     useColorModeValue,
     Center,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 
 export default function forgetPassword() {
     return (
@@ -53,7 +53,7 @@ export default function forgetPassword() {
                     </Button>
                 </Stack>
                 <Center>
-                    <Link
+                    <Link   //i am use next link so style is not run
                         href="/auth/login"
                         color={'teal.300'}
                         _hover={{
