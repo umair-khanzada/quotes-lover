@@ -1,18 +1,22 @@
+import { useCallback } from 'react';
 import { Flex, Spacer, Box, Text, Heading, Button, Link } from '@chakra-ui/react';
 import { useRouter } from 'next/dist/client/router';
 
 const Header = ({ brandName, }) => {
     const { push } = useRouter();
 
-    const onClickLoginHandler = () => {
+    const onClickLoginHandler = useCallback(() => {
         push('/auth/login')
-    }
-    const onClickRegistrationHandler = () => {
+    }, []);
+
+    const onClickRegistrationHandler = useCallback(() => {
         push('/auth/registration')
-    }
-    const onClickLogoHandler = () => {
+    }, []);
+
+    const onClickLogoHandler = useCallback(() => {
         push('/')
-    }
+    }, []);
+
     return (
         <Flex p="2">
             <Box>
@@ -23,7 +27,7 @@ const Header = ({ brandName, }) => {
             </Box>
 
             <Spacer />
-            
+
             <Box>
                 <Button
                     onClick={onClickRegistrationHandler}
