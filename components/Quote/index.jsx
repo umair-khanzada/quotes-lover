@@ -1,27 +1,26 @@
-import { Box, Center, Heading, Text,useColorModeValue } from '@chakra-ui/react';
+import { Box, Center, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 
 export default function QuoteItem({ quote }) {
     return (
-        <>
-            <Box 
-            w={'half'}
+        <Box
+            w="half"
             bg={useColorModeValue('white', 'gray.900')}
-            boxShadow={'2xl'}
-            rounded={'lg'}
+            boxShadow="2xl"
+            rounded="lg"
             p={6}
             m={4}
-            textAlign={'center'}
-            // bgColor="blackAlpha.100" width="40%" zIndex="999" 
-            >
-                <Center>
-                    <Heading>Quotes</Heading>
-                </Center>
+            textAlign="center">
+            <Center>
+                <Heading>Quotes</Heading>
+            </Center>
 
-                <Text justifyContent="center" alignItems="center" textAlign="center" p="4" fontSize="2xl">
-                    <q>{quote}</q>
-                </Text>
+            <Text justifyContent="center" alignItems="center" textAlign="center" p="4" fontSize="2xl">
+                <q>{quote}</q>
+            </Text>
+            <Box>
+                <Text>end line</Text>
             </Box>
-        </>
+        </Box>
     );
 }
 
