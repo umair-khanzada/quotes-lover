@@ -30,13 +30,14 @@ export default function Home() {
   return (
     <>
       <Head>
+        <title>Quotes App</title>
         <link
           href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap"
           rel="stylesheet"
         />
       </Head>
 
-      <Container maxW={'3xl'}>
+      <Container height="90vh" maxW={'3xl'}>
         <Stack
           as={Box}
           textAlign={'center'}
