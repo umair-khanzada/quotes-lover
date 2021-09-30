@@ -12,8 +12,9 @@ import {
   createIcon,
 } from '@chakra-ui/react';
 import styles from '../styles/Home.module.css';
+import { MongoClient } from 'mongodb';
 
-export default function Home() {
+function Home() {
   const router = useRouter();
   // return (
   //   <div className={styles.container}>
@@ -102,6 +103,24 @@ export default function Home() {
     </>
   );
 }
+
+export async function getStaticProps() {
+  const { DEV_URL,CONNECTION } = process.env;
+  // fetch data from an API
+  const client = await MongoClient.connect(CONNECTION)
+  // console.log("server running")
+
+  return {
+    props: {
+      fahad:{
+        name:"fahad"
+      }
+    },
+    revalidate: 1
+  }
+}
+
+export default Home;
 
 const Arrow = createIcon({
   displayName: 'Arrow',
