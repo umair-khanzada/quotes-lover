@@ -75,7 +75,6 @@ export default function HomePage({quotes}) {
 export async function getStaticProps() {
   const res = await fetch('http://localhost:4001/api/quote')
   const quotes = await res.json();
-  console.log("json quotes",quotes);
 
   return {
     props: {

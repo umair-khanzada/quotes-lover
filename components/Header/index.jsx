@@ -1,5 +1,8 @@
 import { useCallback, useContext, useEffect } from 'react';
-import { Flex, Spacer, Box, Text, Heading, Button, Link } from '@chakra-ui/react';
+import {
+    Flex, Spacer, Box, Text, Heading, Button, Link,
+    useColorMode
+} from '@chakra-ui/react';
 import { useRouter } from 'next/dist/client/router';
 import AuthContext, { AuthConsumer, types } from '../../contexts/authContext';
 import { defaultAuth } from '../../reducers/authReducer';
@@ -9,6 +12,7 @@ import DropDownMenu from '../Menu';
 const Header = ({ brandName, auth }) => {
     const { push } = useRouter();
     const [state, dispatch] = useContext(AuthContext);
+    const { colorMode, toggleColorMode } = useColorMode();
 
     const {
         email, phone, token, user_name, __v, _id
@@ -46,6 +50,14 @@ const Header = ({ brandName, auth }) => {
             </Box>
 
             <Spacer />
+
+            <Box mr="5">
+                <Button
+                    colorScheme="teal"
+                    onClick={toggleColorMode}>
+                    Toggle Theme {colorMode === "light" ? "Dark" : "Light"}
+                </Button>
+            </Box>
 
             {!token ? <Box>
                 <Button
