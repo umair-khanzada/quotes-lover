@@ -50,21 +50,37 @@ const QUOTES = [
   },
 ];
 
-export default function HomePage() {
+export default function HomePage({quotes}) {
+  console.log("PROPS",quotes);
   return (
     <>
       <Head>
         <title>Quotes App</title>
       </Head>
       <Grid templateColumns="repeat(3, 1fr)" gap={0}>
-        {QUOTES.map((val, ind) =>
+        {quotes.map((val, ind) =>
           <QuoteItem
-            key={`_${ind}_`}
+            key={`${val._id}`}
             quote={val.quote}
             author={val.author}
-            isFav={val.isFav} />
+          // isFav={val.isFav}
+          />
         )}
       </Grid>
     </>
   );
+};
+
+
+export async function getStaticProps() {
+  const res = await fetch('http://localhost:4001/api/quote')
+  const quotes = await res.json();
+  console.log("json quotes",quotes);
+
+  return {
+    props: {
+        quotes:quotes
+    },
+    revalidate: 1
+  }
 }

@@ -49,10 +49,11 @@ export default function LoginPage() {
         const responce = await fetch('http://localhost:4001/api/login', {
             method: 'POST',
             body: JSON.stringify(
-                {
-                    email: "fahad@gmail.com",
-                    password: "1234asdf"
-                }
+                // {
+                //     email: "fahad@gmail.com",
+                //     password: "1234asdf"
+                // }
+                values
             ),
             headers: {
                 'Content-Type': 'application/json'
