@@ -1,14 +1,18 @@
 import Link from 'next/link';
 import { Box, Center, Heading, Text, useColorModeValue, HStack, VStack, Flex, Spacer } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
     MdFormatQuote,
     MdFavorite,
     MdFavoriteBorder
 } from "react-icons/md"
+import AuthContext from '../../contexts/authContext';
 
 export default function QuoteItem({ quote, author, isFav }) {
     const [_isFav, setIsFav] = useState(false);
+    const [state, dispatch] = useContext(AuthContext);
+    console.log("Quotes",state);
+
     return (
         <Box
             h="fit-content"

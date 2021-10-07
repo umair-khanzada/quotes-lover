@@ -1,24 +1,40 @@
+import { useContext, useEffect } from 'react';
 import {
     Button,
     Checkbox,
     Flex,
     FormControl,
-    FormLabel,
     FormErrorMessage,
+    FormLabel,
     Heading,
     Input,
-    // Link,
     Stack,
     Image,
     useColorModeValue
 } from '@chakra-ui/react';
-
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+
 import { useForm } from 'react-hook-form';
+
+import AuthContext, { AuthProvider, types } from '../../contexts/authContext';
+import { colors } from '../../constants/theme';
 
 const coverImage = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80';
 
-export default function registration() {
+
+export default function LoginPage() {
+    const router = useRouter();
+    // const [{ _id, user_name, phone, email, token },
+    // ] = useContext(AuthContext);
+    const [
+        { email, phone, token, user_name, __v, _id },
+        dispatch] = useContext(AuthContext);
+
+    useEffect(() => {
+        if (token) router.push('/')
+    }, [token])
+
     const {
         handleSubmit,
         register,
@@ -26,45 +42,45 @@ export default function registration() {
     } = useForm();
 
     function onSubmit(values) {
-        userRegisterHandler(values);
-    }
 
-    async function userRegisterHandler(values) {
-        const responce = await fetch(`http://localhost:4001/api/register`, {
+        userLoginHandler(values);
+    }
+    async function userLoginHandler(values) {
+        const responce = await fetch('http://localhost:4001/api/login', {
             method: 'POST',
-            body: JSON.stringify(values),
-            // body: values,
+            body: JSON.stringify(
+                {
+                    email: "fahad@gmail.com",
+                    password: "1234asdf"
+                }
+            ),
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*'
+                'Content-Type': 'application/json'
             }
         });
         const data = await responce.json();
-        //await responce 
-        // router.push('/');
+        dispatch({ type: types.UPDATE_AUTH, data })
+
+
+        // selectors(
+        //     {
+        //         action: types.UPDATE_AUTH,
+        //         data
+        //     }
+        // );
     }
 
     return (
         <Stack minH={'100vh'}
-            bg={useColorModeValue('teal.50', 'gray.800')}
+            bg={useColorModeValue(colors.background)}
             direction={{ base: 'column', md: 'row' }}>
 
-            <Flex flex={1}>
-                <Image
-                    alt={'Login Image'}
-                    objectFit={'cover'}
-                    src={`${coverImage}`}
-                />
-            </Flex>
-
-
             <Flex p={8} flex={1} align={'center'} justify={'center'}>
-
                 <Flex
                     minH={'100vh'}
                     align={'center'}
                     justify={'center'}
-                    bg={useColorModeValue('teal.50', 'gray.800')}>
+                    bg={useColorModeValue(colors.background)}>
                     <Stack
                         spacing={4}
                         w={'full'}
@@ -76,7 +92,7 @@ export default function registration() {
                         my={12}>
 
                         <Stack spacing={4} w={'full'} maxW={'md'}>
-                            <Heading fontSize={'2xl'}>Sign up to your account</Heading>
+                            <Heading fontSize={'2xl'}>Sign in to your account</Heading>
                             <form onSubmit={handleSubmit(onSubmit)}>
                                 <FormControl id="email" isInvalid={errors.email}>
                                     <FormLabel>Email address</FormLabel>
@@ -89,34 +105,6 @@ export default function registration() {
                                         type="email" />
                                     <FormErrorMessage>
                                         {errors.email && errors.email.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-
-                                <FormControl id="user_name" isInvalid={errors.user_name}>
-                                    <FormLabel>User name</FormLabel>
-                                    <Input
-                                        id="user_name"
-                                        placeholder="user name"
-                                        {...register("user_name", {
-                                            required: "This is required",
-                                        })}
-                                        type="text" />
-                                    <FormErrorMessage>
-                                        {errors.user_name && errors.user_name.message}
-                                    </FormErrorMessage>
-                                </FormControl>
-
-                                <FormControl id="phone" isInvalid={errors.phone}>
-                                    <FormLabel>Phone number</FormLabel>
-                                    <Input
-                                        id="phone"
-                                        placeholder="phone"
-                                        {...register("phone", {
-                                            required: "This is required",
-                                        })}
-                                        type="number" />
-                                    <FormErrorMessage>
-                                        {errors.phone && errors.phone.message}
                                     </FormErrorMessage>
                                 </FormControl>
 
@@ -143,15 +131,14 @@ export default function registration() {
                                         direction={{ base: 'column', sm: 'row' }}
                                         align={'start'}
                                         justify={'space-between'}>
-                                        <label>You have already account.</label>
+                                        <Checkbox>Remember me</Checkbox>
                                         <Link
-                                            href="/auth/login"
-                                            color={'teal.500'}>Log in</Link>
+                                            href="/auth/forget-password"
+                                            color={'teal.500'}>Forgot password?</Link>
                                     </Stack>
                                     <Button colorScheme={'teal'} variant={'solid'} type="submit">
-                                        Sign up
+                                        Log in
                                     </Button>
-
                                 </Stack>
                             </form>
                         </Stack>
@@ -159,8 +146,13 @@ export default function registration() {
                 </Flex>
             </Flex>
 
-
+            <Flex flex={1}>
+                <Image
+                    alt={'Login Image'}
+                    objectFit={'cover'}
+                    src={`${coverImage}`}
+                />
+            </Flex>
         </Stack>
     );
 }
-
