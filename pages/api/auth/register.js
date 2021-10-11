@@ -2,7 +2,6 @@ import { MongoClient } from 'mongodb';
 
 // 
 async function handler(req, res) {
-    console.log("HANDLER REQ", req.method)
     const dbName = "quotes-app";
     let client = null;
     try {

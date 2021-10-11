@@ -11,7 +11,6 @@ import AuthContext from '../../contexts/authContext';
 export default function QuoteItem({ quote, author, isFav }) {
     const [_isFav, setIsFav] = useState(false);
     const [state, dispatch] = useContext(AuthContext);
-    console.log("Quotes",state);
 
     return (
         <Box

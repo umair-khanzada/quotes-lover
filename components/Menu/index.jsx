@@ -19,27 +19,54 @@ import {
     MdExitToApp
 } from "react-icons/md"
 import { useContext } from "react";
+import { useDisclosure } from "@chakra-ui/react";
+
 import AuthContext from "../../contexts/authContext";
 
-import { defaultAuth,types } from "../../reducers/authReducer";
+import { defaultAuth, types } from "../../reducers/authReducer";
+import PostQuotes from "../Modal";
 
 const DropDownMenu = () => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
     const [state, dispatch] = useContext(AuthContext);
     const {
         email, phone, token, user_name, __v, _id
     } = state;
 
+
+
     const logoutHandler = () => {
         dispatch(
             {
-                type:types.RESET,
+                type: types.RESET,
             }
         )
 
     };
 
+    const piblishQuote = async (values) => {
+        const responce = await fetch(`http://localhost:4001/api/quote`, {
+            method: 'POST',
+            body: JSON.stringify(values),
+            // body: values,
+            headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'Authorization':token
+            }
+        });
+        const data = await responce.json();
+        return data;
+
+    }
+
     return (
         <Menu>
+            <PostQuotes
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+                piblishQuote={piblishQuote} />
             <MenuButton as={"Button"} minH="48px"
             //rightIcon={<ChevronDownIcon />}
             >
@@ -67,7 +94,7 @@ const DropDownMenu = () => {
                     </HStack>
                 </MenuItem>
                 <MenuItem minH="40px"
-                    onClick={() => console.log("POST")}>
+                    onClick={onOpen}>
                     <HStack spacing="12px">
                         <MdBorderColor
                             cursor='pointer'
