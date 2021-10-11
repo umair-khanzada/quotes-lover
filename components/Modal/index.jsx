@@ -34,7 +34,6 @@ function PostQuotes({ isOpen, onOpen, piblishQuote, onClose }) {
 
     async function onSubmit(values) {
         const publish = await piblishQuote(values);
-        console.log("publish", publish);
         if (publish) {
             reset();
             onClose();
@@ -55,7 +54,6 @@ function PostQuotes({ isOpen, onOpen, piblishQuote, onClose }) {
             onClose={closeModal}
         >
             <ModalOverlay />
-            {console.log("quotePost errors", errors)}
             <ModalContent>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <ModalHeader>Post Quotes</ModalHeader>

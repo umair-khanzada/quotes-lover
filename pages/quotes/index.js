@@ -51,7 +51,6 @@ const QUOTES = [
 ];
 
 export default function HomePage({quotes}) {
-  console.log("PROPS",quotes);
   return (
     <>
       <Head>

@@ -18,13 +18,15 @@ import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 
 import AuthContext, { AuthProvider, types } from '../../contexts/authContext';
-import { colors } from '../../constants/theme';
+import { colors, themeSchema } from '../../constants/index';
+import { ThemeContext } from '../../contexts/themeContext';
 
 const coverImage = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80';
 
 
 export default function LoginPage() {
     const router = useRouter();
+    const [theme, useTheme] = useContext(ThemeContext);
     // const [{ _id, user_name, phone, email, token },
     // ] = useContext(AuthContext);
     const [
@@ -137,7 +139,15 @@ export default function LoginPage() {
                                             href="/auth/forget-password"
                                             color={'teal.500'}>Forgot password?</Link>
                                     </Stack>
-                                    <Button colorScheme={'teal'} variant={'solid'} type="submit">
+                                    <Button
+                                        bg={themeSchema[theme].buttonColor}
+                                        color={themeSchema[theme].btnTextColor}
+                                        _hover={{
+                                            bg: themeSchema[theme].hoverbuttonColor,
+                                            color: themeSchema[theme].hovetextColor
+                                        }}
+                                        variant={'solid'}
+                                        type="submit">
                                         Log in
                                     </Button>
                                 </Stack>

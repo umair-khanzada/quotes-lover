@@ -56,7 +56,6 @@ const DropDownMenu = () => {
             }
         });
         const data = await responce.json();
-        console.log("PUBLISH QUOTES", data);
         return data;
 
     }

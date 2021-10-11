@@ -14,11 +14,16 @@ import {
 } from '@chakra-ui/react';
 
 import Link from 'next/link';
+import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { themeSchema } from '../../constants';
+import { ThemeContext } from '../../contexts/themeContext';
 
 const coverImage = 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1352&q=80';
 
 export default function registration() {
+    const [theme, useTheme] = useContext(ThemeContext);
+    console.log(theme, "<.")
     const {
         handleSubmit,
         register,
@@ -148,8 +153,18 @@ export default function registration() {
                                             href="/auth/login"
                                             color={'teal.500'}>Log in</Link>
                                     </Stack>
-                                    <Button colorScheme={'teal'} variant={'solid'} type="submit">
-                                        Sign up
+
+                                    <Button
+                                        bg={themeSchema[theme].buttonColor}
+                                        color={themeSchema[theme].btnTextColor}
+                                        _hover={{
+                                            bg: themeSchema[theme].hoverbuttonColor,
+                                            color: themeSchema[theme].hovetextColor
+                                        }}
+                                    // variant={'solid'}
+                                    // type="submit"
+                                    >
+                                        Sign up123
                                     </Button>
 
                                 </Stack>
